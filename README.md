@@ -21,6 +21,8 @@ cd torch-mri
 pip install -e .
 ```
 
+Install `torch-complex` in the same way.
+
 ---
 
 *This documentation was optimized with assistance from GPT-4o.*
