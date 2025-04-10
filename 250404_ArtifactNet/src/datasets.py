@@ -31,8 +31,8 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
             ids = [line.strip() for line in f if line.strip()]
 
         for sample_id in ids:
-            lowrank_mat = Path(root_dir) / f"{sample_id}_B1000" / "oscillate" / "img.mat"
-            clean_mat = Path(root_dir) / f"{sample_id}_B1000" / "mbmre" / "img.mat"
+            lowrank_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "oscillate" / "img.mat"
+            clean_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre" / "img.mat"
             if lowrank_mat.exists() and clean_mat.exists():
                 self.lowrank_paths.append(str(lowrank_mat))
                 self.clean_paths.append(str(clean_mat))
@@ -41,8 +41,8 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
 
         self.samples = []
         for i in range(len(self.lowrank_paths)):
-            lowrank = loadmat(self.lowrank_paths[i])['data']
-            clean = loadmat(self.clean_paths[i])['data']
+            lowrank = loadmat(self.lowrank_paths[i])['img']
+            clean = loadmat(self.clean_paths[i])['img']
 
             lowrank = np.squeeze(lowrank)  # [120, 120, 4, 16, 24]
             clean = np.squeeze(clean)
@@ -61,20 +61,20 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         i, b, s, t = self.samples[idx]
 
-        lowrank = loadmat(self.lowrank_paths[i])['data']
-        clean = loadmat(self.clean_paths[i])['data']
+        lowrank = loadmat(self.lowrank_paths[i])['img']
+        clean = loadmat(self.clean_paths[i])['img']
 
         lowrank = np.squeeze(lowrank)  # [120, 120, 4, 16, 24]
         clean = np.squeeze(clean)
 
-        slice_lowrank = lowrank[:, :, b, s, t]
-        slice_clean = clean[:, :, b, s, t]
+        slice_lowrank = lowrank[:, :, b, s, t].astype(np.complex64)
+        slice_clean = clean[:, :, b, s, t].astype(np.complex64)
 
-        print(slice_lowrank.shape); # shape test
-        print(slice_lowrank.dtype); # type test, should in x64
-        print(slice_clean.shape); # shape test
-        print(slice_clean.dtype); # type test, should in x64
-        
+        #print(slice_lowrank.shape); # shape test
+        #print(slice_lowrank.dtype); # type test, should in x64
+        #print(slice_clean.shape); # shape test
+        #print(slice_clean.dtype); # type test, should in x64
+
         slice_artifact = slice_lowrank - slice_clean
 
         input_tensor = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)  # [2, 120, 120]
