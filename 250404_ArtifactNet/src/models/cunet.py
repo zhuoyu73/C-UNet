@@ -1,19 +1,34 @@
+# cunet.py
+# ZS
+# ZS modified: 
+# 1. input read imag and real by channels not by .real & .imag
+# 2. directly use nn rather than cnn as cnn is for complex number (all cnns were changed to nn)
+# 3. U-Net dimension dismatch with upsampling in 14x14 and encoder skip in 15x15 -> center crop & output_paddling=1
+
 from typing import Optional, Union
 
 import torch
 from torch import nn, Tensor
 from torch.nn import Module
 
-from torchcomplex import nn as cnn
+#from torchcomplex import nn as cnn
 
+cnn = nn
 
 norm_type = 'GroupNorm'
 block_type = 'BasicBlock'
 
 __all__ = ['UNet']
 
+def center_crop(source: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    _, _, h, w = source.shape
+    _, _, th, tw = target.shape
+    dh = h - th
+    dw = w - tw
+    return source[:, :, dh // 2: h - (dh - dh // 2), dw // 2: w - (dw - dw // 2)]
+# ZS defined center crop for size match
 
-def conv3x3(in_channels: int, out_channels: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> cnn.Conv2d:
+def conv3x3(in_channels: int, out_channels: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> nn.Conv2d:
     """3x3 convolution with padding"""
     return cnn.Conv2d(
         in_channels,
@@ -27,12 +42,12 @@ def conv3x3(in_channels: int, out_channels: int, stride: int = 1, groups: int = 
     )
 
 
-def conv1x1(in_channels: int, out_channels: int, stride: int = 1) -> cnn.Conv2d:
+def conv1x1(in_channels: int, out_channels: int, stride: int = 1) -> nn.Conv2d:
     """1x1 convolution"""
     return cnn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False)
 
 
-def norm_layer(out_channels: int) -> Union[cnn.BatchNorm2d, cnn.GroupNorm]:
+def norm_layer(out_channels: int) -> Union[nn.BatchNorm2d, nn.GroupNorm]:
     if norm_type == 'BatchNorm':
         layer = cnn.BatchNorm2d(out_channels)
     elif norm_type == 'GroupNorm':
@@ -171,13 +186,23 @@ class AttentionGate(Module):
     def forward(self, x: Tensor, g: Tensor) -> Tensor:
         g1 = self.W_g(g)
         x1 = self.W_x(x)
+        print(f"g1 shape: {g1.shape}, x1 shape: {x1.shape}")
+        
+        # ZS Match shape by center crop if necessary
+        if x1.shape != g1.shape:
+            x1 = center_crop(x1, g1)
+
         psi = self.relu(g1 + x1)
         psi = self.psi(psi)
 
-        output_real = torch.mul(x.real, psi.real) - torch.mul(x.imag, psi.imag)
-        output_imag = torch.mul(x.real, psi.imag) + torch.mul(x.imag, psi.real)
-        return output_real + 1j * output_imag
+        # ZS Match size again
+        if psi.shape[2:] != x.shape[2:]:
+            x = center_crop(x, psi)
 
+        #output_real = torch.mul(x.real, psi.real) - torch.mul(x.imag, psi.imag)
+        #output_imag = torch.mul(x.real, psi.imag) + torch.mul(x.imag, psi.real)
+        #return output_real + 1j * output_imag
+        return x*psi #ZS modified real and imag
 
 class Up(Module):
     att: Optional[Module]
@@ -189,13 +214,21 @@ class Up(Module):
         attention: bool
     ) -> None:
         super().__init__()
+        '''
         self.up_conv = cnn.ConvTranspose2d(
             in_channels=in_channels,
             out_channels=out_channels,
             kernel_size=2,
             stride=2,
-            padding=0
+            padding=0,
+            #output_padding=1 #ZS size match
         )
+        '''
+        self.up = nn.Sequential(
+            nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
+            conv3x3(in_channels, out_channels)
+        ) # ZS upsampling method change
+
         self.conv = block_layer(out_channels * 2, out_channels)
         if attention:
             self.att = AttentionGate(
@@ -207,7 +240,8 @@ class Up(Module):
             self.att = None
 
     def forward(self, up_x, down_x) -> Tensor:
-        up_x = self.up_conv(up_x)
+        #up_x = self.up_conv(up_x)
+        up_x = self.up(up_x) #ZS upsampling methodß test
         if self.att is not None:
             x = self.att(down_x, up_x)
             x = torch.cat([up_x, x], dim=1)
@@ -293,4 +327,7 @@ class CUNet(Module):
     def forward(self, input: Tensor) -> Tensor:
         latent = self.encoder(input)
         output = self.decoder(latent)
+        #ZS: interpolate output to the same size as input
+        output = nn.functional.interpolate(output, size=input.shape[-2:], mode='bilinear', align_corners=False)
+        print(f"output_size: {output.shape}")
         return output
