@@ -20,6 +20,7 @@ block_type = 'BasicBlock'
 
 __all__ = ['UNet']
 
+'''
 def center_crop(source: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     _, _, h, w = source.shape
     _, _, th, tw = target.shape
@@ -27,6 +28,7 @@ def center_crop(source: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     dw = w - tw
     return source[:, :, dh // 2: h - (dh - dh // 2), dw // 2: w - (dw - dw // 2)]
 # ZS defined center crop for size match
+'''
 
 def conv3x3(in_channels: int, out_channels: int, stride: int = 1, groups: int = 1, dilation: int = 1) -> nn.Conv2d:
     """3x3 convolution with padding"""
@@ -186,18 +188,18 @@ class AttentionGate(Module):
     def forward(self, x: Tensor, g: Tensor) -> Tensor:
         g1 = self.W_g(g)
         x1 = self.W_x(x)
-        print(f"g1 shape: {g1.shape}, x1 shape: {x1.shape}")
+        #print(f"g1 shape: {g1.shape}, x1 shape: {x1.shape}")
         
         # ZS Match shape by center crop if necessary
-        if x1.shape != g1.shape:
-            x1 = center_crop(x1, g1)
+        #if x1.shape != g1.shape:
+        #    x1 = center_crop(x1, g1)
 
         psi = self.relu(g1 + x1)
         psi = self.psi(psi)
 
         # ZS Match size again
-        if psi.shape[2:] != x.shape[2:]:
-            x = center_crop(x, psi)
+        #if psi.shape[2:] != x.shape[2:]:
+        #    x = center_crop(x, psi)
 
         #output_real = torch.mul(x.real, psi.real) - torch.mul(x.imag, psi.imag)
         #output_imag = torch.mul(x.real, psi.imag) + torch.mul(x.imag, psi.real)
@@ -214,7 +216,7 @@ class Up(Module):
         attention: bool
     ) -> None:
         super().__init__()
-        '''
+        
         self.up_conv = cnn.ConvTranspose2d(
             in_channels=in_channels,
             out_channels=out_channels,
@@ -228,7 +230,7 @@ class Up(Module):
             nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
             conv3x3(in_channels, out_channels)
         ) # ZS upsampling method change
-
+        '''
         self.conv = block_layer(out_channels * 2, out_channels)
         if attention:
             self.att = AttentionGate(
@@ -240,8 +242,8 @@ class Up(Module):
             self.att = None
 
     def forward(self, up_x, down_x) -> Tensor:
-        #up_x = self.up_conv(up_x)
-        up_x = self.up(up_x) #ZS upsampling methodß test
+        up_x = self.up_conv(up_x)
+        #up_x = self.up(up_x) #ZS upsampling methodß test
         if self.att is not None:
             x = self.att(down_x, up_x)
             x = torch.cat([up_x, x], dim=1)
@@ -328,6 +330,6 @@ class CUNet(Module):
         latent = self.encoder(input)
         output = self.decoder(latent)
         #ZS: interpolate output to the same size as input
-        output = nn.functional.interpolate(output, size=input.shape[-2:], mode='bilinear', align_corners=False)
-        print(f"output_size: {output.shape}")
+        #output = nn.functional.interpolate(output, size=input.shape[-2:], mode='bilinear', align_corners=False)
+        #print(f"output_size: {output.shape}")
         return output

@@ -8,7 +8,6 @@ from pathlib import Path
 from scipy.io import loadmat
 from torch.nn import functional as F
 from .models.artifactnet import ArtifactNet  
-from .models.cunet import center_crop 
 import argparse
 def load_slice(data, b, s, t):
     """Get a single complex slice from the 5D MRE data [H, W, B, S, T]"""
@@ -26,11 +25,24 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     print(lowrank.shape)
     clean_slice = clean[:,:,b,s,t]
     lowrank_slice = lowrank[:,:,b,s,t]
-    print(lowrank_slice.shape)
+
+    lowrank_slice = np.stack([np.real(lowrank_slice), np.imag(lowrank_slice)], axis=0)
+    clean_slice = np.stack([np.real(clean_slice), np.imag(clean_slice)], axis=0)
+    # ZS Convert to tensor before padding
+    lowrank_slice = torch.from_numpy(lowrank_slice).float()
+    clean_slice = torch.from_numpy(clean_slice).float()
+    # ZS Pad to 128x128 
+    lowrank_slice = F.pad(lowrank_slice, (4,4,4,4), mode="constant", value=0)
+    clean_slice = F.pad(clean_slice, (4,4,4,4), mode="constant", value=0)
     artifact_true = lowrank_slice - clean_slice
-    print(lowrank_slice.shape)
-    input_tensor = np.stack([np.real(lowrank_slice), np.imag(lowrank_slice)], axis=0)
-    input_tensor = torch.from_numpy(input_tensor).unsqueeze(0).float().to('cuda')  # [1, 2, 120, 120]    
+    clean_slice = clean_slice[0].numpy() + 1j * clean_slice[1].numpy()
+    artifact_true = artifact_true[0].numpy() + 1j * artifact_true[1].numpy()
+
+
+    #print(lowrank_slice.shape)
+    #print(artifact_true.shape)
+    #input_tensor = np.stack([np.real(lowrank_slice), np.imag(lowrank_slice)], axis=0)
+    input_tensor = lowrank_slice.unsqueeze(0).float().to('cuda')  # [1, 2, 120, 120]    
     
     # Load model
     model = ArtifactNet().to('cuda')
@@ -53,6 +65,7 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     plt.show()
 
 
+    lowrank_slice = lowrank_slice[0].numpy() + 1j * lowrank_slice[1].numpy()
 
     artifact_pred = pred[0].numpy() + 1j * pred[1].numpy()
     # Reconstructed (denoised) image

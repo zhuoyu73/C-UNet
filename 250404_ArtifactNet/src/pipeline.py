@@ -74,9 +74,9 @@ class Pipeline:
         val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
         test_dataset  = ArtifactImageSliceDataset(root_dir, data_dir / 'test.txt')
         print(f"Train set: {len(train_dataset)}, Val set: {len(val_dataset)}, Test set: {len(test_dataset)}")
-        train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=2, drop_last=True)
-        val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=1)
-        test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False, num_workers=1)
+        train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=8, drop_last=True)
+        val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=4)
+        test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False, num_workers=4)
         return train_loader, val_loader, test_loader
 
     def __call__(self):
