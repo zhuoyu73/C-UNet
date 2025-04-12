@@ -75,10 +75,11 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
         #print(slice_clean.shape); # shape test
         #print(slice_clean.dtype); # type test, should in x64
 
-        slice_artifact = slice_lowrank - slice_clean
+        slice_artifact = slice_clean - slice_lowrank #ZS modify 
 
         input_tensor = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)  # [2, 120, 120]
         label_tensor = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)  # [2, 120, 120]
+        # ZS padding
 
         return {
             'ispace_under': torch.from_numpy(input_tensor).float(),
