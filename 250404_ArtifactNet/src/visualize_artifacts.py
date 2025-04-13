@@ -22,7 +22,7 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     lowrank = loadmat(lowrank_path)['img']
     print(lowrank.shape)
     lowrank = np.squeeze(lowrank)
-    print(lowrank.shape)
+    
     clean_slice = clean[:,:,b,s,t]
     lowrank_slice = lowrank[:,:,b,s,t]
 
@@ -37,7 +37,7 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     artifact_true = lowrank_slice - clean_slice
     clean_slice = clean_slice[0].numpy() + 1j * clean_slice[1].numpy()
     artifact_true = artifact_true[0].numpy() + 1j * artifact_true[1].numpy()
-
+    print(lowrank_slice.shape)
 
     #print(lowrank_slice.shape)
     #print(artifact_true.shape)
