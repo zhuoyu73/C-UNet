@@ -156,6 +156,53 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     print(f"PSNR (phase): {psnr_phase:.2f} dB")
 
 
+def find_best_slice(clean, lowrank, model):
+    min_mse = float('inf')
+    best_idx = (0, 0, 0)
+    
+    B, S, T = clean.shape[2], clean.shape[3], clean.shape[4]
+
+    for b in range(B):
+        for s in range(S):
+            for t in range(T):
+                # Same slice preprocessing steps
+                clean_slice = clean[:,:,b,s,t].astype(np.complex64)
+                lowrank_slice = lowrank[:,:,b,s,t].astype(np.complex64)
+                artifact_slice = lowrank_slice - clean_slice
+
+                # Amplify
+                scale = 1e6
+                clean_slice *= scale
+                lowrank_slice *= scale
+                artifact_slice *= scale
+
+                # Convert to tensor and pad
+                clean_slice_t = F.pad(torch.from_numpy(np.stack([np.real(clean_slice), np.imag(clean_slice)])).float(), (4,4,4,4))
+                lowrank_slice_t = F.pad(torch.from_numpy(np.stack([np.real(lowrank_slice), np.imag(lowrank_slice)])).float(), (4,4,4,4))
+                
+                input_tensor = lowrank_slice_t.unsqueeze(0).to('cuda')
+
+                # Predict
+                with torch.no_grad():
+                    pred = model(input_tensor).cpu().squeeze(0) / scale
+
+                corrected = lowrank_slice_t / scale - pred
+                clean_slice_t = clean_slice_t / scale
+
+                # Calculate MSE
+                clean_complex = clean_slice_t[0].numpy() + 1j * clean_slice_t[1].numpy()
+                corrected_complex = corrected[0].numpy() + 1j * corrected[1].numpy()
+                mse = np.mean(np.abs(clean_complex - corrected_complex) ** 2)
+                print(f"current slice: b={b}, s={s}, t={t}, mse={mse}")
+
+                if mse < min_mse:
+                    min_mse = mse
+                    best_idx = (b, s, t)
+
+    return best_idx
+
+
+
 
 
 if __name__ == '__main__':
@@ -163,8 +210,20 @@ if __name__ == '__main__':
     parser.add_argument('--clean', type=str, required=True, help='Path to fullysampled img.mat')
     parser.add_argument('--lowrank', type=str, required=True, help='Path to lowrank img.mat')
     parser.add_argument('--model', type=str, required=True, help='Path to model .pt file')
-    parser.add_argument('--b', type=int, default=3)
-    parser.add_argument('--s', type=int, default=12)
-    parser.add_argument('--t', type=int, default=23)
+    #parser.add_argument('--b', type=int, default=3)
+    #parser.add_argument('--s', type=int, default=12)
+    #parser.add_argument('--t', type=int, default=23)
     args = parser.parse_args()
-    visualize(args.clean, args.lowrank, args.model, args.b, args.s, args.t)
+    #visualize(args.clean, args.lowrank, args.model, args.b, args.s, args.t)
+
+
+    clean_mat = loadmat(args.clean)['img']
+    lowrank_mat = loadmat(args.lowrank)['img']
+    clean_mat = np.squeeze(clean_mat)
+    lowrank_mat = np.squeeze(lowrank_mat)
+    model = ArtifactNet().to('cuda')
+    model.load_state_dict(torch.load(args.model, map_location='cuda'))
+    model.eval()
+    b_best, s_best, t_best = find_best_slice(clean_mat, lowrank_mat, model)
+    print(f"Best slice (min MSE): b={b_best}, s={s_best}, t={t_best}")
+    visualize(args.clean, args.lowrank, args.model, b_best, s_best, t_best)
