@@ -216,7 +216,7 @@ class Up(Module):
         attention: bool
     ) -> None:
         super().__init__()
-        
+        '''
         self.up_conv = cnn.ConvTranspose2d(
             in_channels=in_channels,
             out_channels=out_channels,
@@ -230,7 +230,7 @@ class Up(Module):
             nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False),
             conv3x3(in_channels, out_channels)
         ) # ZS upsampling method change
-        '''
+        
         self.conv = block_layer(out_channels * 2, out_channels)
         if attention:
             self.att = AttentionGate(
@@ -242,8 +242,8 @@ class Up(Module):
             self.att = None
 
     def forward(self, up_x, down_x) -> Tensor:
-        up_x = self.up_conv(up_x)
-        #up_x = self.up(up_x) #ZS upsampling methodß test
+        #up_x = self.up_conv(up_x)
+        up_x = self.up(up_x) #ZS upsampling method test
         if self.att is not None:
             x = self.att(down_x, up_x)
             x = torch.cat([up_x, x], dim=1)

@@ -29,7 +29,7 @@ from . import utils
 # 2. changed the pipeline
 #    a). substitute the model to the ArtifactNet model we defined in 1
 #    b). changed the data input to isp_in, isp_true = batch['ispace_under'], batch['ispace']
-#    c). set the label as label = isp_in - isp_true (undersampled img - fullysampled img)
+#    c). set the label as label = isp_true (fullysampled img - undersampled img = artifact img)
 #    d). changed the loss function to complex number MSE and metrics to MSE only
 #    e). removed changing output img to magnitude and calculating RSS loss
 #    f). data input
@@ -74,7 +74,7 @@ class Pipeline:
         val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
         test_dataset  = ArtifactImageSliceDataset(root_dir, data_dir / 'test.txt')
         print(f"Train set: {len(train_dataset)}, Val set: {len(val_dataset)}, Test set: {len(test_dataset)}")
-        train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=8, drop_last=True)
+        train_loader = DataLoader(train_dataset, batch_size=64, shuffle=False, num_workers=8, drop_last=True) #no shuffle to reserve spatial info
         val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=4)
         test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False, num_workers=4)
         return train_loader, val_loader, test_loader
@@ -102,7 +102,7 @@ class Pipeline:
             isp_in, isp_true = batch['ispace_under'], batch['ispace']
 
             pred = self.model(isp_in.to(self.device))
-            label = (isp_in - isp_true).to(self.device)
+            label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
 
             losses['mse_loss'].append(loss.item())
@@ -127,7 +127,7 @@ class Pipeline:
             batch: dict[str, torch.Tensor]
             isp_in, isp_true = batch['ispace_under'], batch['ispace']
             pred = self.model(isp_in.to(self.device))
-            label = (isp_in - isp_true).to(self.device)
+            label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
             losses.append(loss.item())
 
@@ -152,7 +152,7 @@ class Pipeline:
             batch: dict[str, torch.Tensor]
             isp_in, isp_true = batch['ispace_under'], batch['ispace']
             pred = self.model(isp_in.to(self.device))
-            label = (isp_in - isp_true).to(self.device)
+            label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
             losses.append(loss.item())
 

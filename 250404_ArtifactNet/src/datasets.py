@@ -32,7 +32,7 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
             ids = [line.strip() for line in f if line.strip()]
 
         for sample_id in ids:
-            lowrank_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "oscillate" / "img.mat"
+            lowrank_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre_both" / "img.mat"
             clean_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre" / "img.mat"
             if lowrank_mat.exists() and clean_mat.exists():
                 self.lowrank_paths.append(str(lowrank_mat))
@@ -68,15 +68,20 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
 
         slice_lowrank = lowrank[:, :, b, s, t].astype(np.complex64)
         slice_clean = clean[:, :, b, s, t].astype(np.complex64)
+        slice_artifact = slice_lowrank - slice_clean #ZS
+
+        scale = 1000000
+        slice_lowrank = slice_lowrank * scale
+        slice_artifact = slice_artifact * scale
 
         slice_lowrank = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)
-        slice_clean = np.stack([np.real(slice_clean), np.imag(slice_clean)], axis=0)
+        slice_artifact = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)
         # ZS Convert to tensor before padding
         slice_lowrank = torch.from_numpy(slice_lowrank).float()
-        slice_clean = torch.from_numpy(slice_clean).float()
+        slice_artifact = torch.from_numpy(slice_artifact).float()
         # ZS Pad to 128x128 
         slice_lowrank = F.pad(slice_lowrank, (4,4,4,4), mode="constant", value=0)
-        slice_clean = F.pad(slice_clean, (4,4,4,4), mode="constant", value=0)
+        slice_artifact = F.pad(slice_artifact, (4,4,4,4), mode="constant", value=0)
 
 
         #print(slice_lowrank.shape); # shape test
@@ -84,7 +89,7 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
         #print(slice_clean.shape); # shape test
         #print(slice_clean.dtype); # type test, should in x64
 
-        slice_artifact = slice_clean - slice_lowrank #ZS
+        #slice_artifact = slice_lowrank - slice_clean #ZS
 
         #print(slice_artifact.shape); # shape test
         #print(slice_artifact.dtype); # type test
