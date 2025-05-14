@@ -68,7 +68,7 @@ class Pipeline:
     
     @staticmethod
     def _get_loader():
-        root_dir = '/mnt/external/zhuoyu/fully+osci'
+        root_dir = '/mnt/zhuoyu1/zhuoyu/fully+osci'
         data_dir = Path(__file__).parent.parent / 'data/v0'
         train_dataset = ArtifactImageSliceDataset(root_dir, data_dir / 'training.txt')
         val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
