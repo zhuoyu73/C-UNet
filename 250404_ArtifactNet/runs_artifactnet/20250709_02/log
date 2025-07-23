@@ -1,0 +1,198 @@
+[20250709T024056Z] seed: 42
+[20250709T024056Z] PID = 348340
+[20250709T024057Z] Epoch 0
+[20250709T024259Z] Train: mse_loss = 5.3124e-02
+[20250709T024306Z] Val: mse_loss = 2.1209e-02
+[20250709T024306Z] New best model saved with val_loss = 2.1209e-02
+[20250709T024306Z] Epoch 1
+[20250709T024508Z] Train: mse_loss = 4.5242e-02
+[20250709T024515Z] Val: mse_loss = 2.1002e-02
+[20250709T024515Z] New best model saved with val_loss = 2.1002e-02
+[20250709T024515Z] Epoch 2
+[20250709T024717Z] Train: mse_loss = 4.4804e-02
+[20250709T024724Z] Val: mse_loss = 2.0876e-02
+[20250709T024724Z] New best model saved with val_loss = 2.0876e-02
+[20250709T024724Z] Epoch 3
+[20250709T024926Z] Train: mse_loss = 4.4194e-02
+[20250709T024933Z] Val: mse_loss = 2.0919e-02
+[20250709T024933Z] Epoch 4
+[20250709T025135Z] Train: mse_loss = 4.3852e-02
+[20250709T025142Z] Val: mse_loss = 2.0859e-02
+[20250709T025142Z] New best model saved with val_loss = 2.0859e-02
+[20250709T025142Z] Epoch 5
+[20250709T025344Z] Train: mse_loss = 4.3749e-02
+[20250709T025351Z] Val: mse_loss = 2.0739e-02
+[20250709T025351Z] New best model saved with val_loss = 2.0739e-02
+[20250709T025351Z] Epoch 6
+[20250709T025553Z] Train: mse_loss = 4.2939e-02
+[20250709T025559Z] Val: mse_loss = 2.0607e-02
+[20250709T025559Z] New best model saved with val_loss = 2.0607e-02
+[20250709T025559Z] Epoch 7
+[20250709T025801Z] Train: mse_loss = 4.3243e-02
+[20250709T025808Z] Val: mse_loss = 2.0616e-02
+[20250709T025808Z] Epoch 8
+[20250709T030010Z] Train: mse_loss = 4.2532e-02
+[20250709T030017Z] Val: mse_loss = 2.0498e-02
+[20250709T030017Z] New best model saved with val_loss = 2.0498e-02
+[20250709T030017Z] Epoch 9
+[20250709T030219Z] Train: mse_loss = 4.2610e-02
+[20250709T030226Z] Val: mse_loss = 2.0481e-02
+[20250709T030226Z] New best model saved with val_loss = 2.0481e-02
+[20250709T030226Z] Epoch 10
+[20250709T030428Z] Train: mse_loss = 4.2178e-02
+[20250709T030435Z] Val: mse_loss = 2.0437e-02
+[20250709T030435Z] New best model saved with val_loss = 2.0437e-02
+[20250709T030435Z] Epoch 11
+[20250709T030637Z] Train: mse_loss = 4.2027e-02
+[20250709T030644Z] Val: mse_loss = 2.0395e-02
+[20250709T030644Z] New best model saved with val_loss = 2.0395e-02
+[20250709T030644Z] Epoch 12
+[20250709T030846Z] Train: mse_loss = 4.1849e-02
+[20250709T030853Z] Val: mse_loss = 2.0368e-02
+[20250709T030853Z] New best model saved with val_loss = 2.0368e-02
+[20250709T030853Z] Epoch 13
+[20250709T031055Z] Train: mse_loss = 4.1732e-02
+[20250709T031102Z] Val: mse_loss = 2.0354e-02
+[20250709T031102Z] New best model saved with val_loss = 2.0354e-02
+[20250709T031102Z] Epoch 14
+[20250709T031304Z] Train: mse_loss = 4.1442e-02
+[20250709T031311Z] Val: mse_loss = 2.0324e-02
+[20250709T031311Z] New best model saved with val_loss = 2.0324e-02
+[20250709T031311Z] Epoch 15
+[20250709T031514Z] Train: mse_loss = 4.1384e-02
+[20250709T031520Z] Val: mse_loss = 2.0291e-02
+[20250709T031520Z] New best model saved with val_loss = 2.0291e-02
+[20250709T031520Z] Epoch 16
+[20250709T031722Z] Train: mse_loss = 4.1184e-02
+[20250709T031729Z] Val: mse_loss = 2.0262e-02
+[20250709T031729Z] New best model saved with val_loss = 2.0262e-02
+[20250709T031729Z] Epoch 17
+[20250709T031931Z] Train: mse_loss = 4.1201e-02
+[20250709T031938Z] Val: mse_loss = 2.0233e-02
+[20250709T031938Z] New best model saved with val_loss = 2.0233e-02
+[20250709T031938Z] Epoch 18
+[20250709T032140Z] Train: mse_loss = 4.1102e-02
+[20250709T032147Z] Val: mse_loss = 2.0201e-02
+[20250709T032147Z] New best model saved with val_loss = 2.0201e-02
+[20250709T032147Z] Epoch 19
+[20250709T032349Z] Train: mse_loss = 4.0978e-02
+[20250709T032356Z] Val: mse_loss = 2.0172e-02
+[20250709T032356Z] New best model saved with val_loss = 2.0172e-02
+[20250709T032356Z] Epoch 20
+[20250709T032558Z] Train: mse_loss = 4.0902e-02
+[20250709T032605Z] Val: mse_loss = 2.0140e-02
+[20250709T032605Z] New best model saved with val_loss = 2.0140e-02
+[20250709T032605Z] Epoch 21
+[20250709T032807Z] Train: mse_loss = 4.0741e-02
+[20250709T032814Z] Val: mse_loss = 2.0124e-02
+[20250709T032814Z] New best model saved with val_loss = 2.0124e-02
+[20250709T032814Z] Epoch 22
+[20250709T033016Z] Train: mse_loss = 4.0704e-02
+[20250709T033023Z] Val: mse_loss = 2.0101e-02
+[20250709T033023Z] New best model saved with val_loss = 2.0101e-02
+[20250709T033023Z] Epoch 23
+[20250709T033225Z] Train: mse_loss = 4.0527e-02
+[20250709T033232Z] Val: mse_loss = 2.0093e-02
+[20250709T033232Z] New best model saved with val_loss = 2.0093e-02
+[20250709T033232Z] Epoch 24
+[20250709T033434Z] Train: mse_loss = 4.0403e-02
+[20250709T033441Z] Val: mse_loss = 2.0070e-02
+[20250709T033441Z] New best model saved with val_loss = 2.0070e-02
+[20250709T033441Z] Epoch 25
+[20250709T033643Z] Train: mse_loss = 4.0233e-02
+[20250709T033649Z] Val: mse_loss = 2.0023e-02
+[20250709T033649Z] New best model saved with val_loss = 2.0023e-02
+[20250709T033649Z] Epoch 26
+[20250709T033850Z] Train: mse_loss = 4.0109e-02
+[20250709T033857Z] Val: mse_loss = 1.9979e-02
+[20250709T033857Z] New best model saved with val_loss = 1.9979e-02
+[20250709T033857Z] Epoch 27
+[20250709T034058Z] Train: mse_loss = 3.9990e-02
+[20250709T034104Z] Val: mse_loss = 1.9933e-02
+[20250709T034104Z] New best model saved with val_loss = 1.9933e-02
+[20250709T034104Z] Epoch 28
+[20250709T034305Z] Train: mse_loss = 3.9889e-02
+[20250709T034312Z] Val: mse_loss = 1.9904e-02
+[20250709T034312Z] New best model saved with val_loss = 1.9904e-02
+[20250709T034312Z] Epoch 29
+[20250709T034513Z] Train: mse_loss = 3.9788e-02
+[20250709T034519Z] Val: mse_loss = 1.9877e-02
+[20250709T034519Z] New best model saved with val_loss = 1.9877e-02
+[20250709T034519Z] Epoch 30
+[20250709T034720Z] Train: mse_loss = 3.9682e-02
+[20250709T034727Z] Val: mse_loss = 1.9842e-02
+[20250709T034727Z] New best model saved with val_loss = 1.9842e-02
+[20250709T034727Z] Epoch 31
+[20250709T034928Z] Train: mse_loss = 3.9590e-02
+[20250709T034935Z] Val: mse_loss = 1.9820e-02
+[20250709T034935Z] New best model saved with val_loss = 1.9820e-02
+[20250709T034935Z] Epoch 32
+[20250709T035136Z] Train: mse_loss = 3.9487e-02
+[20250709T035142Z] Val: mse_loss = 1.9830e-02
+[20250709T035142Z] Epoch 33
+[20250709T035343Z] Train: mse_loss = 3.9385e-02
+[20250709T035350Z] Val: mse_loss = 1.9779e-02
+[20250709T035350Z] New best model saved with val_loss = 1.9779e-02
+[20250709T035350Z] Epoch 34
+[20250709T035551Z] Train: mse_loss = 3.9260e-02
+[20250709T035557Z] Val: mse_loss = 1.9748e-02
+[20250709T035557Z] New best model saved with val_loss = 1.9748e-02
+[20250709T035557Z] Epoch 35
+[20250709T035758Z] Train: mse_loss = 3.9153e-02
+[20250709T035805Z] Val: mse_loss = 1.9722e-02
+[20250709T035805Z] New best model saved with val_loss = 1.9722e-02
+[20250709T035805Z] Epoch 36
+[20250709T040006Z] Train: mse_loss = 3.9058e-02
+[20250709T040013Z] Val: mse_loss = 1.9715e-02
+[20250709T040013Z] New best model saved with val_loss = 1.9715e-02
+[20250709T040013Z] Epoch 37
+[20250709T040214Z] Train: mse_loss = 3.8958e-02
+[20250709T040220Z] Val: mse_loss = 1.9705e-02
+[20250709T040220Z] New best model saved with val_loss = 1.9705e-02
+[20250709T040220Z] Epoch 38
+[20250709T040421Z] Train: mse_loss = 3.8864e-02
+[20250709T040428Z] Val: mse_loss = 1.9691e-02
+[20250709T040428Z] New best model saved with val_loss = 1.9691e-02
+[20250709T040428Z] Epoch 39
+[20250709T040629Z] Train: mse_loss = 3.8788e-02
+[20250709T040636Z] Val: mse_loss = 1.9681e-02
+[20250709T040636Z] New best model saved with val_loss = 1.9681e-02
+[20250709T040636Z] Epoch 40
+[20250709T040837Z] Train: mse_loss = 3.8689e-02
+[20250709T040843Z] Val: mse_loss = 1.9680e-02
+[20250709T040843Z] New best model saved with val_loss = 1.9680e-02
+[20250709T040843Z] Epoch 41
+[20250709T041044Z] Train: mse_loss = 3.8594e-02
+[20250709T041051Z] Val: mse_loss = 1.9687e-02
+[20250709T041051Z] Epoch 42
+[20250709T041252Z] Train: mse_loss = 3.8506e-02
+[20250709T041259Z] Val: mse_loss = 1.9683e-02
+[20250709T041259Z] Epoch 43
+[20250709T041500Z] Train: mse_loss = 3.8419e-02
+[20250709T041506Z] Val: mse_loss = 1.9674e-02
+[20250709T041506Z] New best model saved with val_loss = 1.9674e-02
+[20250709T041506Z] Epoch 44
+[20250709T041707Z] Train: mse_loss = 3.8339e-02
+[20250709T041714Z] Val: mse_loss = 1.9664e-02
+[20250709T041714Z] New best model saved with val_loss = 1.9664e-02
+[20250709T041714Z] Epoch 45
+[20250709T041915Z] Train: mse_loss = 3.8255e-02
+[20250709T041922Z] Val: mse_loss = 1.9652e-02
+[20250709T041922Z] New best model saved with val_loss = 1.9652e-02
+[20250709T041922Z] Epoch 46
+[20250709T042123Z] Train: mse_loss = 3.8182e-02
+[20250709T042129Z] Val: mse_loss = 1.9641e-02
+[20250709T042129Z] New best model saved with val_loss = 1.9641e-02
+[20250709T042129Z] Epoch 47
+[20250709T042330Z] Train: mse_loss = 3.8110e-02
+[20250709T042337Z] Val: mse_loss = 1.9627e-02
+[20250709T042337Z] New best model saved with val_loss = 1.9627e-02
+[20250709T042337Z] Epoch 48
+[20250709T042538Z] Train: mse_loss = 3.8041e-02
+[20250709T042545Z] Val: mse_loss = 1.9620e-02
+[20250709T042545Z] New best model saved with val_loss = 1.9620e-02
+[20250709T042545Z] Epoch 49
+[20250709T042746Z] Train: mse_loss = 3.7974e-02
+[20250709T042752Z] Val: mse_loss = 1.9609e-02
+[20250709T042752Z] New best model saved with val_loss = 1.9609e-02
+[20250709T042759Z] Test: mse_loss = 9.2355e-03

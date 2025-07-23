@@ -1,13 +1,15 @@
 # visualize_artifacts.py
 # ZS wrote this script to visualize the artifact map and compare results with the best model
 
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from pathlib import Path
 from scipy.io import loadmat
+from scipy.io import savemat
 from torch.nn import functional as F
-from .models.artifactnet import ArtifactNet  
+from models.artifactnet import ArtifactNet  
 import argparse
 def load_slice(data, b, s, t):
     """Get a single complex slice from the 5D MRE data [H, W, B, S, T]"""
@@ -156,6 +158,7 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     print(f"PSNR (phase): {psnr_phase:.2f} dB")
 
 
+
 def find_best_slice(clean, lowrank, model):
     min_mse = float('inf')
     best_idx = (0, 0, 0)
@@ -202,12 +205,83 @@ def find_best_slice(clean, lowrank, model):
     return best_idx
 
 
+def process_all_slices(clean_path, lowrank_path, model_path, save_path):
+    os.makedirs(save_path, exist_ok=True)
+    artifact_path = os.path.join(save_path, 'artifact_pred.mat')
+    denoised_path = os.path.join(save_path, 'denoised_img.mat')
+    denoised_path_3 = os.path.join(save_path, 'denoised_img_3.mat')
+
+    clean = loadmat(clean_path)['img']
+    lowrank = loadmat(lowrank_path)['img']
+    clean = np.squeeze(clean)
+    lowrank = np.squeeze(lowrank)
+
+    artifact_pred_all = np.zeros(clean.shape, dtype=np.complex64)
+    denoised_all = np.zeros(clean.shape, dtype=np.complex64)
+    denoised_all_3 = np.zeros(clean.shape, dtype=np.complex64)
+
+    model = ArtifactNet().to('cuda')
+    model.load_state_dict(torch.load(model_path, map_location='cuda'))
+    model.eval()
+
+    B, S, T = clean.shape[2], clean.shape[3], clean.shape[4]
+
+    for b in range(B):
+        for s in range(S):
+            for t in range(T):
+                clean_slice = clean[:, :, b, s, t].astype(np.complex64)
+                lowrank_slice = lowrank[:, :, b, s, t].astype(np.complex64)
+
+                # Scale
+                scale = 1e6
+                clean_slice *= scale
+                lowrank_slice *= scale
+
+                input_slice = lowrank_slice
+                input_tensor = torch.from_numpy(np.stack([np.real(input_slice), np.imag(input_slice)], axis=0)).unsqueeze(0)
+                input_tensor = F.pad(input_tensor, (4, 4, 4, 4), mode='constant', value=0).float().to('cuda')
+
+                with torch.no_grad():
+                    pred = model(input_tensor).cpu().squeeze(0)
+
+                # Unpad back to 120x120
+                pred = pred[:, 4:-4, 4:-4]
+
+                # Get denoised image
+                lowrank_slice /= scale
+                # ZS 07/09 separate denoising
+                lowrank_slice_real = np.real(lowrank_slice)
+                lowrank_slice_imag = np.imag(lowrank_slice)
+                artifact_pred_real = pred[0].numpy() / scale
+                artifact_pred_imag = pred[1].numpy() / scale
+                denoised_real = lowrank_slice_real - artifact_pred_real
+                denoised_imag = lowrank_slice_imag - artifact_pred_imag
+                denoised = denoised_real + 1j * denoised_imag
+                artifact_pred = pred[0].numpy() + 1j * pred[1].numpy()
+
+                denoised_real_3 = lowrank_slice_real - 3*artifact_pred_real
+                denoised_imag_3 = lowrank_slice_imag - 3*artifact_pred_imag
+                denoised_3 = denoised_real_3 + 1j * denoised_imag_3
+                #denoised = lowrank_slice - artifact_pred 
+
+                artifact_pred_all[:, :, b, s, t] = artifact_pred
+                denoised_all[:, :, b, s, t] = denoised
+                denoised_all_3[:, :, b, s, t] = denoised_3
+    artifact_pred_all = np.expand_dims(artifact_pred_all, axis=(4, 5, 6))  
+    denoised_all = np.expand_dims(denoised_all, axis=(4, 5, 6))
+    savemat(artifact_path, {'artifact_pred': artifact_pred_all})
+    savemat(denoised_path, {'denoised_img': denoised_all})
+    savemat(denoised_path_3, {'denoised_img_3': denoised_all_3})
+    print("Saved all slices")
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--clean', type=str, required=True, help='Path to fullysampled img.mat')
     parser.add_argument('--lowrank', type=str, required=True, help='Path to lowrank img.mat')
     parser.add_argument('--model', type=str, required=True, help='Path to model .pt file')
+    parser.add_argument('--save', type=str, default='/home/zhuoyu/Desktop/C-UNet/250404_ArtifactNet/results')
     #parser.add_argument('--b', type=int, default=3)
     #parser.add_argument('--s', type=int, default=12)
     #parser.add_argument('--t', type=int, default=23)
@@ -225,3 +299,5 @@ if __name__ == '__main__':
     b_best, s_best, t_best = find_best_slice(clean_mat, lowrank_mat, model)
     print(f"Best slice (min MSE): b={b_best}, s={s_best}, t={t_best}")
     visualize(args.clean, args.lowrank, args.model, b_best, s_best, t_best)
+    visualize(args.clean, args.lowrank, args.model, 3, 4, 12)
+    process_all_slices(args.clean, args.lowrank, args.model, args.save)

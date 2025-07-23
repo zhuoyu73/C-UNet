@@ -1,5 +1,4 @@
 ### artifactnet
-# ZS
 import argparse
 import os
 from pathlib import Path
@@ -18,13 +17,19 @@ from tqdm import tqdm
 
 from .models.artifactnet import ArtifactNet
 from .datasets import ArtifactImageSliceDataset
+from .datasets import ArtifactProcessedImageSliceDataset
 from . import utils
 
-# ZS made the changes below: 
+import torch.multiprocessing as mp
+mp.set_sharing_strategy('file_system')
+import gc
+import torch  # ZS 06/19
+
+# the changes between ArtifactNet and CUNet made by ZS: 
 # 1. changed the RACUNet_PAFT_RACUNet module (AFT block) to the ArtifactNet under models
 #    a). removed the AFT block and reserves the CUNet block
-#    b). changed input and output to complex number single slice image, as the CUNet only supports slicewise operations, 
-#       so the input channel is now 2 and output channel is also 2 (complex number); the input to the model should be 
+#    b). changed input and output to complex number single slice image.
+#       The input channel is now 2 and output channel is also 2 (complex number); the input to the model should be 
 #       complex number image in size 120x120
 # 2. changed the pipeline
 #    a). substitute the model to the ArtifactNet model we defined in 1
@@ -41,6 +46,7 @@ class Pipeline:
     def __init__(self, save_dir: Path, debug: bool = False, verbose: bool = True) -> None:
         self.logger = utils.get_logger(verbose, save_dir)
         self.writer = SummaryWriter(save_dir)
+        #self.writer = None  #ZS 06/19
 
         self.logger.info(f'seed: 42')
         utils.setup_seed(42)
@@ -68,11 +74,14 @@ class Pipeline:
     
     @staticmethod
     def _get_loader():
-        root_dir = '/mnt/zhuoyu1/zhuoyu/fully+osci'
-        data_dir = Path(__file__).parent.parent / 'data/v0'
-        train_dataset = ArtifactImageSliceDataset(root_dir, data_dir / 'training.txt')
-        val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
-        test_dataset  = ArtifactImageSliceDataset(root_dir, data_dir / 'test.txt')
+        #root_dir = '/mnt/external/zhuoyu/fully+osci'
+        #data_dir = Path(__file__).parent.parent / 'data/v0'
+        #train_dataset = ArtifactImageSliceDataset(root_dir, data_dir / 'training.txt')
+        #val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
+        #test_dataset  = ArtifactImageSliceDataset(root_dir, data_dir / 'test.txt')
+        train_dataset = ArtifactProcessedImageSliceDataset("data_processed/training")
+        val_dataset   = ArtifactProcessedImageSliceDataset("data_processed/validation")
+        test_dataset  = ArtifactProcessedImageSliceDataset("data_processed/test")
         print(f"Train set: {len(train_dataset)}, Val set: {len(val_dataset)}, Test set: {len(test_dataset)}")
         train_loader = DataLoader(train_dataset, batch_size=64, shuffle=False, num_workers=8, drop_last=True) #no shuffle to reserve spatial info
         val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=4)
@@ -104,17 +113,25 @@ class Pipeline:
             pred = self.model(isp_in.to(self.device))
             label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
+            # ZS 07/08 circular mask; 2*brain and 0.5*background
+            #mask = batch['mask'].to(self.device)
+            #weight_map = (mask * 2.0 + (1 - mask) * 0.5)
+            #loss = F.mse_loss(pred * weight_map, label * weight_map)
 
             losses['mse_loss'].append(loss.item())
-            self.writer.add_scalar('mse_loss/train', loss.item(), self.epoch * iter + i)
+            if self.writer is not None:
+                self.writer.add_scalar('mse_loss/train', loss.item(), self.epoch * iter + i)
 
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-            self.writer.add_scalar('lr/train', self.scheduler.get_last_lr()[0], self.epoch * iter + i)
             self.scheduler.step(self.epoch + i / iter)
+            if self.writer is not None:
+                self.writer.add_scalar('lr/train', self.scheduler.get_last_lr()[0], self.epoch * iter + i)
+
 
         self.logger.info(f"Train: mse_loss = {np.mean(losses['mse_loss']):.4e}")
+
     
     @torch.no_grad()
     def val_epoch(self):
@@ -129,11 +146,16 @@ class Pipeline:
             pred = self.model(isp_in.to(self.device))
             label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
+            # ZS 07/08 circular mask; 2*brain and 0.5*background
+            #mask = batch['mask'].to(self.device)
+            #weight_map = (mask * 2.0 + (1 - mask) * 0.5)
+            #loss = F.mse_loss(pred * weight_map, label * weight_map)
             losses.append(loss.item())
 
         avg_loss = np.mean(losses)
         self.logger.info(f"Val: mse_loss = {avg_loss:.4e}")
-        self.writer.add_scalar('mse_loss/val', avg_loss, self.epoch)
+        if self.writer is not None:
+            self.writer.add_scalar('mse_loss/val', avg_loss, self.epoch)
         if not hasattr(self, 'best_loss') or avg_loss < self.best_loss:
             self.best_loss = avg_loss
             torch.save(self.model.state_dict(), self.save_dir / 'best_model.pt')
@@ -164,8 +186,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--debug', action='store_true')
     args = parser.parse_args()
-
-    save_dir = Path('runs_artifactnet')
+    ts = pd.Timestamp.now().strftime('%Y%m%d_%H')  # 07/02
+    save_dir = Path(f"runs_artifactnet/{ts}")
     save_dir.mkdir(parents=True, exist_ok=True)
     pipeline = Pipeline(save_dir=save_dir, debug=args.debug)
     pipeline()

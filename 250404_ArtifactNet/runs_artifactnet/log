@@ -970,3 +970,650 @@
 [20250512T084335Z] Val: mse_loss = 2.3442e-03
 [20250512T084335Z] New best model saved with val_loss = 2.3442e-03
 [20250512T091356Z] Test: mse_loss = 2.5390e-02
+[20250613T192938Z] seed: 42
+[20250613T192938Z] PID = 382209
+[20250613T192938Z] Epoch 0
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 1
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 2
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 3
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 4
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 5
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 6
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 7
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 8
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 9
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 10
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 11
+[20250613T192938Z] Train: mse_loss = nan
+[20250613T192938Z] Val: mse_loss = nan
+[20250613T192938Z] Epoch 12
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 13
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 14
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 15
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 16
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 17
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 18
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 19
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 20
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 21
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 22
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 23
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 24
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 25
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 26
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 27
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192939Z] Val: mse_loss = nan
+[20250613T192939Z] Epoch 28
+[20250613T192939Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 29
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 30
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 31
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 32
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 33
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 34
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 35
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 36
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 37
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 38
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 39
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 40
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 41
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 42
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 43
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 44
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192940Z] Val: mse_loss = nan
+[20250613T192940Z] Epoch 45
+[20250613T192940Z] Train: mse_loss = nan
+[20250613T192941Z] Val: mse_loss = nan
+[20250613T192941Z] Epoch 46
+[20250613T192941Z] Train: mse_loss = nan
+[20250613T192941Z] Val: mse_loss = nan
+[20250613T192941Z] Epoch 47
+[20250613T192941Z] Train: mse_loss = nan
+[20250613T192941Z] Val: mse_loss = nan
+[20250613T192941Z] Epoch 48
+[20250613T192941Z] Train: mse_loss = nan
+[20250613T192941Z] Val: mse_loss = nan
+[20250613T192941Z] Epoch 49
+[20250613T192941Z] Train: mse_loss = nan
+[20250613T192941Z] Val: mse_loss = nan
+[20250613T211611Z] seed: 42
+[20250613T211611Z] PID = 384268
+[20250613T211611Z] Epoch 0
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 1
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 2
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 3
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 4
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 5
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 6
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 7
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 8
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 9
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 10
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 11
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 12
+[20250613T211611Z] Train: mse_loss = nan
+[20250613T211611Z] Val: mse_loss = nan
+[20250613T211611Z] Epoch 13
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 14
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 15
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 16
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 17
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 18
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 19
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 20
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 21
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 22
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 23
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 24
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 25
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 26
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 27
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 28
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 29
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211612Z] Val: mse_loss = nan
+[20250613T211612Z] Epoch 30
+[20250613T211612Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 31
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 32
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 33
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 34
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 35
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 36
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 37
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 38
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 39
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 40
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 41
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 42
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 43
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 44
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 45
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 46
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 47
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211613Z] Val: mse_loss = nan
+[20250613T211613Z] Epoch 48
+[20250613T211613Z] Train: mse_loss = nan
+[20250613T211614Z] Val: mse_loss = nan
+[20250613T211614Z] Epoch 49
+[20250613T211614Z] Train: mse_loss = nan
+[20250613T211614Z] Val: mse_loss = nan
+[20250613T212130Z] seed: 42
+[20250613T212130Z] PID = 385664
+[20250613T212130Z] Epoch 0
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 1
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 2
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 3
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 4
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 5
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 6
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 7
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 8
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 9
+[20250613T212130Z] Train: mse_loss = nan
+[20250613T212130Z] Val: mse_loss = nan
+[20250613T212130Z] Epoch 10
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 11
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 12
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 13
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 14
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 15
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 16
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 17
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 18
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 19
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 20
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 21
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 22
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 23
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 24
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 25
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 26
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 27
+[20250613T212131Z] Train: mse_loss = nan
+[20250613T212131Z] Val: mse_loss = nan
+[20250613T212131Z] Epoch 28
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 29
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 30
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 31
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 32
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 33
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 34
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 35
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 36
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 37
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 38
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 39
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 40
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 41
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 42
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 43
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 44
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 45
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212132Z] Val: mse_loss = nan
+[20250613T212132Z] Epoch 46
+[20250613T212132Z] Train: mse_loss = nan
+[20250613T212133Z] Val: mse_loss = nan
+[20250613T212133Z] Epoch 47
+[20250613T212133Z] Train: mse_loss = nan
+[20250613T212133Z] Val: mse_loss = nan
+[20250613T212133Z] Epoch 48
+[20250613T212133Z] Train: mse_loss = nan
+[20250613T212133Z] Val: mse_loss = nan
+[20250613T212133Z] Epoch 49
+[20250613T212133Z] Train: mse_loss = nan
+[20250613T212133Z] Val: mse_loss = nan
+[20250613T212202Z] seed: 42
+[20250613T212202Z] PID = 387315
+[20250613T212203Z] Epoch 0
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 1
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 2
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 3
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 4
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 5
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 6
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 7
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 8
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 9
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 10
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 11
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 12
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 13
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 14
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 15
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212203Z] Val: mse_loss = nan
+[20250613T212203Z] Epoch 16
+[20250613T212203Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 17
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 18
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 19
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 20
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 21
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 22
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 23
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 24
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 25
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 26
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 27
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 28
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 29
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 30
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 31
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 32
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 33
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 34
+[20250613T212204Z] Train: mse_loss = nan
+[20250613T212204Z] Val: mse_loss = nan
+[20250613T212204Z] Epoch 35
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 36
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 37
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 38
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 39
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 40
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 41
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 42
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 43
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 44
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 45
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 46
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 47
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 48
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212205Z] Epoch 49
+[20250613T212205Z] Train: mse_loss = nan
+[20250613T212205Z] Val: mse_loss = nan
+[20250613T212550Z] seed: 42
+[20250613T212550Z] PID = 389205
+[20250613T212801Z] seed: 42
+[20250613T212801Z] PID = 389396
+[20250613T213535Z] Epoch 0
+[20250615T172207Z] seed: 42
+[20250615T172207Z] PID = 423555
+[20250615T172527Z] Epoch 0
+[20250616T111704Z] seed: 42
+[20250616T111705Z] PID = 534973
+[20250616T112233Z] Epoch 0
+[20250616T223512Z] seed: 42
+[20250616T223512Z] PID = 708224
+[20250616T224056Z] Epoch 0
+[20250617T214959Z] seed: 42
+[20250617T214959Z] PID = 797702
+[20250617T215724Z] Epoch 0
+[20250620T161019Z] seed: 42
+[20250620T161019Z] PID = 991929
+[20250620T161803Z] Epoch 0
+[20250628T161157Z] seed: 42
+[20250628T161157Z] PID = 1437683
+[20250628T161636Z] Epoch 0
+[20250628T213451Z] seed: 42
+[20250628T213451Z] PID = 1480271
+[20250628T214128Z] seed: 42
+[20250628T214128Z] PID = 1480724
+[20250628T214531Z] Epoch 0
+[20250630T122209Z] seed: 42
+[20250630T122209Z] PID = 1579259
+[20250630T122941Z] Epoch 0
+[20250630T180338Z] seed: 42
+[20250630T180338Z] PID = 1622366
+[20250630T180955Z] Epoch 0
+[20250701T120337Z] seed: 42
+[20250701T120337Z] PID = 1674224
+[20250701T122708Z] seed: 42
+[20250701T122708Z] PID = 14277
+[20250701T123448Z] Epoch 0

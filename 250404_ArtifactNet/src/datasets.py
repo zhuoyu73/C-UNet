@@ -32,7 +32,7 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
             ids = [line.strip() for line in f if line.strip()]
 
         for sample_id in ids:
-            lowrank_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre_both" / "img.mat"
+            lowrank_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre_both" / "img_US.mat"
             clean_mat = Path(root_dir) / f"{sample_id}" / f"{sample_id}_B1000" / "mbmre" / "img.mat"
             if lowrank_mat.exists() and clean_mat.exists():
                 self.lowrank_paths.append(str(lowrank_mat))
@@ -58,46 +58,73 @@ class ArtifactImageSliceDataset(torch.utils.data.Dataset):
         return len(self.samples)
 
     def __getitem__(self, idx):
-        i, b, s, t = self.samples[idx]
+        try: #0616
+            i, b, s, t = self.samples[idx]
 
-        lowrank = loadmat(self.lowrank_paths[i])['img']
-        clean = loadmat(self.clean_paths[i])['img']
+            lowrank = loadmat(self.lowrank_paths[i])['img']
+            clean = loadmat(self.clean_paths[i])['img']
 
-        lowrank = np.squeeze(lowrank)  # [120, 120, 4, 16, 24]
-        clean = np.squeeze(clean)
+            lowrank = np.squeeze(lowrank)  # [120, 120, 4, 16, 24]
+            clean = np.squeeze(clean)
 
-        slice_lowrank = lowrank[:, :, b, s, t].astype(np.complex64)
-        slice_clean = clean[:, :, b, s, t].astype(np.complex64)
-        slice_artifact = slice_lowrank - slice_clean #ZS
+            slice_lowrank = lowrank[:, :, b, s, t].astype(np.complex64)
+            slice_clean = clean[:, :, b, s, t].astype(np.complex64)
+            slice_artifact = slice_lowrank - slice_clean #ZS
 
-        scale = 1000000
-        slice_lowrank = slice_lowrank * scale
-        slice_artifact = slice_artifact * scale
+            scale = 1000000
+            slice_lowrank = slice_lowrank * scale
+            slice_artifact = slice_artifact * scale
 
-        slice_lowrank = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)
-        slice_artifact = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)
-        # ZS Convert to tensor before padding
-        slice_lowrank = torch.from_numpy(slice_lowrank).float()
-        slice_artifact = torch.from_numpy(slice_artifact).float()
-        # ZS Pad to 128x128 
-        slice_lowrank = F.pad(slice_lowrank, (4,4,4,4), mode="constant", value=0)
-        slice_artifact = F.pad(slice_artifact, (4,4,4,4), mode="constant", value=0)
+            slice_lowrank = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)
+            slice_artifact = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)
+            # ZS Convert to tensor before padding
+            slice_lowrank = torch.from_numpy(slice_lowrank).float()
+            slice_artifact = torch.from_numpy(slice_artifact).float()
+            # ZS Pad to 128x128 
+            slice_lowrank = F.pad(slice_lowrank, (4,4,4,4), mode="constant", value=0)
+            slice_artifact = F.pad(slice_artifact, (4,4,4,4), mode="constant", value=0)
 
 
-        #print(slice_lowrank.shape); # shape test
-        #print(slice_lowrank.dtype); # type test, should in x64
-        #print(slice_clean.shape); # shape test
-        #print(slice_clean.dtype); # type test, should in x64
+            #print(slice_lowrank.shape); # shape test
+            #print(slice_lowrank.dtype); # type test, should in x64
+            #print(slice_clean.shape); # shape test
+            #print(slice_clean.dtype); # type test, should in x64
 
-        #slice_artifact = slice_lowrank - slice_clean #ZS
+            #slice_artifact = slice_lowrank - slice_clean #ZS
 
-        #print(slice_artifact.shape); # shape test
-        #print(slice_artifact.dtype); # type test
+            #print(slice_artifact.shape); # shape test
+            #print(slice_artifact.dtype); # type test
 
-        #input_tensor = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)  # [2, 120, 120]
-        #label_tensor = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)  # [2, 120, 120]
+            #input_tensor = np.stack([np.real(slice_lowrank), np.imag(slice_lowrank)], axis=0)  # [2, 120, 120]
+            #label_tensor = np.stack([np.real(slice_artifact), np.imag(slice_artifact)], axis=0)  # [2, 120, 120]
 
-        return {
-            'ispace_under': slice_lowrank,
-            'ispace': slice_artifact
-        }
+            return {
+                'ispace_under': slice_lowrank,
+                'ispace': slice_artifact
+            }
+        except Exception as e: #0616
+            print(f"[Error] Failed at index {idx}: {e}")
+            return self.__getitem__((idx + 1) % len(self))
+
+
+#06/19 ZS: updated preprocessing in preprocess_artifactnet.py and then extract all the .pt files here
+class ArtifactProcessedImageSliceDataset(torch.utils.data.Dataset):
+    def __init__(self, root_dir: str):
+        #root_dir = "data_processed/training" 
+        self.files = sorted(Path(root_dir).glob("*.pt"))
+
+    def __len__(self): 
+        return len(self.files)
+
+    def __getitem__(self, idx):
+        sample = torch.load(self.files[idx], map_location="cpu")
+        x = sample['x'] 
+        y = sample['y']      # [2,128,128] float32
+        #mask = sample['mask'] #ZS 07/08 circular mask
+        x = x.to(torch.float32) #reassure datatype
+        y = y.to(torch.float32)
+        #mask = mask.to(torch.float32) #ZS 07/08 circular mask
+        return {'ispace_under': x, 
+                'ispace': y
+                #'mask': mask #ZS 07/08 circular mask
+                }
