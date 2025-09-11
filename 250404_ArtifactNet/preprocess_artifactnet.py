@@ -13,10 +13,10 @@ def save_processed_dataset(split_txt_path, root_dir, save_dir):
         ids = [line.strip() for line in f if line.strip()]
 
     # ZS 07/08 add circular mask
-    #mask = loadmat("src/circular_mask_0_75.mat")['mask'] 
-    #mask = np.pad(mask, ((4,4),(4,4)), mode='constant') 
-    #mask = np.stack([mask]*2, axis=0) 
-    #mask = torch.from_numpy(mask).float()
+    mask = loadmat("src/circular_mask.mat")['mask'] 
+    mask = np.pad(mask, ((4,4),(4,4)), mode='constant') 
+    mask = np.stack([mask]*2, axis=0) 
+    mask = torch.from_numpy(mask).float()
 
     #ids = ids[39:55]
     sample_idx = 0
@@ -40,11 +40,12 @@ def save_processed_dataset(split_txt_path, root_dir, save_dir):
                     for s in range(S):
                         slc_lr = lowrank[:, :, b, s, t].astype(np.complex64)
                         slc_cl = clean[:, :, b, s, t].astype(np.complex64)
-                        slc_artifact = slc_lr - slc_cl
+                        #slc_artifact = slc_lr - slc_cl
                         
-                        scale = 1000000
+                        scale = 1000000 #07/28 5e6
                         x = slc_lr * scale
-                        y = slc_artifact * scale
+                        #y = slc_artifact * scale
+                        y = slc_cl * scale # 07/25
 
                         x = torch.from_numpy(np.stack([np.real(x), np.imag(x)], axis=0)).float()
                         y = torch.from_numpy(np.stack([np.real(y), np.imag(y)], axis=0)).float()
@@ -57,13 +58,14 @@ def save_processed_dataset(split_txt_path, root_dir, save_dir):
                         # save
                         save_path = save_dir / f'sample_{sample_idx:06d}.pt'
                         with open(save_path, 'wb') as f:
-                            #torch.save({'x': x, 'y': y, 'mask': mask}, f) #ZS: 07/08 add circular mask
-                            torch.save({'x': x, 'y': y}, f)
+                            torch.save({'x': x, 'y': y, 'mask': mask}, f) #ZS: 07/08 add circular mask
+                            #torch.save({'x': x, 'y': y}, f)
 
                         sample_idx += 1
 
                         # cleanup
-                        del x, y, slc_lr, slc_cl, slc_artifact
+                        #del x, y, slc_lr, slc_cl, slc_artifact
+                        del x, y, slc_lr, slc_cl #07/25
                         gc.collect()
         except Exception as e:
             print(f"Error when processing {sample_id}: {e}")

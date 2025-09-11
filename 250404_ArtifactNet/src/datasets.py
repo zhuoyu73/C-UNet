@@ -120,11 +120,11 @@ class ArtifactProcessedImageSliceDataset(torch.utils.data.Dataset):
         sample = torch.load(self.files[idx], map_location="cpu")
         x = sample['x'] 
         y = sample['y']      # [2,128,128] float32
-        #mask = sample['mask'] #ZS 07/08 circular mask
+        mask = sample['mask'] #ZS 07/08 circular mask
         x = x.to(torch.float32) #reassure datatype
         y = y.to(torch.float32)
-        #mask = mask.to(torch.float32) #ZS 07/08 circular mask
+        mask = mask.to(torch.float32) #ZS 07/08 circular mask
         return {'ispace_under': x, 
-                'ispace': y
-                #'mask': mask #ZS 07/08 circular mask
+                'ispace': y,
+                'mask': mask #ZS 07/08 circular mask
                 }

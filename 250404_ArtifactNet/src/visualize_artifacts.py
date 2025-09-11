@@ -26,24 +26,24 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     
     clean_slice = clean[:,:,b,s,t].astype(np.complex64)
     lowrank_slice = lowrank[:,:,b,s,t].astype(np.complex64)
-    artifact_slice = lowrank_slice - clean_slice
+    #artifact_slice = lowrank_slice - clean_slice #07/25
 
     scale = 1000000
-    clean_slice = clean_slice * scale
+    clean_slice = clean_slice * scale 
     lowrank_slice = lowrank_slice * scale
-    artifact_slice = artifact_slice * scale
+    #artifact_slice = artifact_slice * scale #07/25
 
     clean_slice = np.stack([np.real(clean_slice), np.imag(clean_slice)], axis=0)
     lowrank_slice = np.stack([np.real(lowrank_slice), np.imag(lowrank_slice)], axis=0)
-    artifact_slice = np.stack([np.real(artifact_slice), np.imag(artifact_slice)], axis=0)
+    #artifact_slice = np.stack([np.real(artifact_slice), np.imag(artifact_slice)], axis=0) #07/25
     # ZS Convert to tensor before padding
     clean_slice = torch.from_numpy(clean_slice).float()
     lowrank_slice = torch.from_numpy(lowrank_slice).float()
-    artifact_slice = torch.from_numpy(artifact_slice).float()
+    #artifact_slice = torch.from_numpy(artifact_slice).float() #07/25
     # ZS Pad to 128x128 
     clean_slice = F.pad(clean_slice, (4,4,4,4), mode="constant", value=0)
     lowrank_slice = F.pad(lowrank_slice, (4,4,4,4), mode="constant", value=0)
-    artifact_slice = F.pad(artifact_slice, (4,4,4,4), mode="constant", value=0)
+    #artifact_slice = F.pad(artifact_slice, (4,4,4,4), mode="constant", value=0) #07/25
 
     input_tensor = lowrank_slice.unsqueeze(0).float().to('cuda')  # [1, 2, 120, 120]    
     
@@ -63,14 +63,17 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
 
     #lowrank_slice = lowrank_slice[0].numpy() + 1j * lowrank_slice[1].numpy()
     #artifact_pred = pred[0].numpy() + 1j * pred[1].numpy()
-    clean_slice = clean_slice / 1000000
-    lowrank_slice = lowrank_slice / 1000000
-    artifact_true = artifact_slice / 1000000
-    artifact_pred = pred / 1000000
+    clean_slice = clean_slice / scale
+    lowrank_slice = lowrank_slice / scale
+    #artifact_true = artifact_slice / scale #07/25
+    artifact_true = clean_slice / scale #07/25
+    artifact_pred = pred / scale
     # Reconstructed (denoised) image
-    corrected = lowrank_slice - artifact_pred
+    #corrected = lowrank_slice - artifact_pred #07/25
+    corrected = artifact_pred; #07/25
     # Plot
-    fig, axs = plt.subplots(2, 5, figsize=(18, 4))
+    fig, axs = plt.subplots(2, 4, figsize=(18, 4))
+    #fig, axs = plt.subplots(2, 5, figsize=(18, 4))
     data00 = clean_slice[0].numpy()
     im00 = axs[0, 0].imshow(data00, cmap='gray', vmin=np.min(data00), vmax=np.max(data00))
     axs[0, 0].set_title('Original real clean')
@@ -91,35 +94,35 @@ def visualize(clean_path, lowrank_path, model_path, b, s, t): #ZS example
     axs[1, 1].set_title('Original imag lowrank')
     fig.colorbar(im11, ax=axs[1, 1])
 
-    data02 = artifact_true[0].numpy()
-    im02 = axs[0, 2].imshow(data02, cmap='gray', vmin=np.min(data02), vmax=np.max(data02))
-    axs[0, 2].set_title('True real artifact')
-    fig.colorbar(im02, ax=axs[0, 2])
+    #data02 = artifact_true[0].numpy()
+    #im02 = axs[0, 2].imshow(data02, cmap='gray', vmin=np.min(data02), vmax=np.max(data02))
+    #axs[0, 2].set_title('True real artifact')
+    #fig.colorbar(im02, ax=axs[0, 2])
 
-    data12 = artifact_true[1].numpy()
-    im12 = axs[1, 2].imshow(data12, cmap='gray', vmin=np.min(data12), vmax=np.max(data12))
-    axs[1, 2].set_title('True imag artifact')
-    fig.colorbar(im12, ax=axs[1, 2])
+    #data12 = artifact_true[1].numpy()
+    #im12 = axs[1, 2].imshow(data12, cmap='gray', vmin=np.min(data12), vmax=np.max(data12))
+    #axs[1, 2].set_title('True imag artifact')
+    #fig.colorbar(im12, ax=axs[1, 2])
 
     data03 = artifact_pred[0].numpy()
-    im03 = axs[0, 3].imshow(data03, cmap='gray', vmin=np.min(data03), vmax=np.max(data03))
-    axs[0, 3].set_title('Predicted real artifact')
-    fig.colorbar(im03, ax=axs[0, 3])
+    im03 = axs[0, 2].imshow(data03, cmap='gray', vmin=np.min(data03), vmax=np.max(data03))
+    axs[0, 2].set_title('Predicted real image')
+    fig.colorbar(im03, ax=axs[0, 2])
 
     data13 = artifact_pred[1].numpy()
-    im13 = axs[1, 3].imshow(data13, cmap='gray', vmin=np.min(data13), vmax=np.max(data13))
-    axs[1, 3].set_title('Predicted imag artifact')
-    fig.colorbar(im13, ax=axs[1, 3])
+    im13 = axs[1, 2].imshow(data13, cmap='gray', vmin=np.min(data13), vmax=np.max(data13))
+    axs[1, 2].set_title('Predicted imag image')
+    fig.colorbar(im13, ax=axs[1, 2])
 
     data04 = corrected[0].numpy()
-    im04 = axs[0, 4].imshow(data04, cmap='gray', vmin=np.min(data04), vmax=np.max(data04))
-    axs[0, 4].set_title('Denoised real clean')
-    fig.colorbar(im04, ax=axs[0, 4])
+    im04 = axs[0, 3].imshow(data04, cmap='gray', vmin=np.min(data04), vmax=np.max(data04))
+    axs[0, 3].set_title('Denoised real clean')
+    fig.colorbar(im04, ax=axs[0, 3])
 
     data14 = corrected[1].numpy()
-    im14 = axs[1, 4].imshow(data14, cmap='gray', vmin=np.min(data14), vmax=np.max(data14))
-    axs[1, 4].set_title('Denoised imag clean')
-    fig.colorbar(im14, ax=axs[1, 4])
+    im14 = axs[1, 3].imshow(data14, cmap='gray', vmin=np.min(data14), vmax=np.max(data14))
+    axs[1, 3].set_title('Denoised imag clean')
+    fig.colorbar(im14, ax=axs[1, 3])
 
     for ax in axs.ravel():
         ax.axis('off')
@@ -171,10 +174,11 @@ def find_best_slice(clean, lowrank, model):
                 # Same slice preprocessing steps
                 clean_slice = clean[:,:,b,s,t].astype(np.complex64)
                 lowrank_slice = lowrank[:,:,b,s,t].astype(np.complex64)
-                artifact_slice = lowrank_slice - clean_slice
+                #artifact_slice = lowrank_slice - clean_slice #07/25
+                artifact_slice = clean_slice #07/25
 
                 # Amplify
-                scale = 1e6
+                scale = 1000000
                 clean_slice *= scale
                 lowrank_slice *= scale
                 artifact_slice *= scale
@@ -189,7 +193,8 @@ def find_best_slice(clean, lowrank, model):
                 with torch.no_grad():
                     pred = model(input_tensor).cpu().squeeze(0) / scale
 
-                corrected = lowrank_slice_t / scale - pred
+                corrected = pred #07/25
+                #corrected = lowrank_slice_t / scale - pred #07/25
                 clean_slice_t = clean_slice_t / scale
 
                 # Calculate MSE
@@ -233,7 +238,7 @@ def process_all_slices(clean_path, lowrank_path, model_path, save_path):
                 lowrank_slice = lowrank[:, :, b, s, t].astype(np.complex64)
 
                 # Scale
-                scale = 1e6
+                scale = 1000000
                 clean_slice *= scale
                 lowrank_slice *= scale
 
@@ -254,24 +259,26 @@ def process_all_slices(clean_path, lowrank_path, model_path, save_path):
                 lowrank_slice_imag = np.imag(lowrank_slice)
                 artifact_pred_real = pred[0].numpy() / scale
                 artifact_pred_imag = pred[1].numpy() / scale
-                denoised_real = lowrank_slice_real - artifact_pred_real
-                denoised_imag = lowrank_slice_imag - artifact_pred_imag
+                #denoised_real = lowrank_slice_real - artifact_pred_real #07/25
+                #denoised_imag = lowrank_slice_imag - artifact_pred_imag #07/25
+                denoised_real = artifact_pred_real #07/25
+                denoised_imag = artifact_pred_imag #07/25
                 denoised = denoised_real + 1j * denoised_imag
-                artifact_pred = pred[0].numpy() + 1j * pred[1].numpy()
+                artifact_pred = artifact_pred_real + 1j * artifact_pred_imag
 
-                denoised_real_3 = lowrank_slice_real - 3*artifact_pred_real
-                denoised_imag_3 = lowrank_slice_imag - 3*artifact_pred_imag
-                denoised_3 = denoised_real_3 + 1j * denoised_imag_3
+                #denoised_real_3 = lowrank_slice_real - 3*artifact_pred_real
+                #denoised_imag_3 = lowrank_slice_imag - 3*artifact_pred_imag
+                #denoised_3 = denoised_real_3 + 1j * denoised_imag_3
                 #denoised = lowrank_slice - artifact_pred 
 
                 artifact_pred_all[:, :, b, s, t] = artifact_pred
                 denoised_all[:, :, b, s, t] = denoised
-                denoised_all_3[:, :, b, s, t] = denoised_3
+                #denoised_all_3[:, :, b, s, t] = denoised_3
     artifact_pred_all = np.expand_dims(artifact_pred_all, axis=(4, 5, 6))  
     denoised_all = np.expand_dims(denoised_all, axis=(4, 5, 6))
     savemat(artifact_path, {'artifact_pred': artifact_pred_all})
     savemat(denoised_path, {'denoised_img': denoised_all})
-    savemat(denoised_path_3, {'denoised_img_3': denoised_all_3})
+    #savemat(denoised_path_3, {'denoised_img_3': denoised_all_3})
     print("Saved all slices")
 
 

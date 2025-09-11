@@ -60,7 +60,7 @@ class Pipeline:
         self.model.to(self.device)
 
         self.optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=1e-4, weight_decay=1e-4)
+            self.model.parameters(), lr=5e-4, weight_decay=1e-4)
         self.scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
             self.optimizer, T_0=50, T_mult=1, eta_min=1e-5)
 
@@ -79,9 +79,9 @@ class Pipeline:
         #train_dataset = ArtifactImageSliceDataset(root_dir, data_dir / 'training.txt')
         #val_dataset   = ArtifactImageSliceDataset(root_dir, data_dir / 'validation.txt')
         #test_dataset  = ArtifactImageSliceDataset(root_dir, data_dir / 'test.txt')
-        train_dataset = ArtifactProcessedImageSliceDataset("data_processed/training")
-        val_dataset   = ArtifactProcessedImageSliceDataset("data_processed/validation")
-        test_dataset  = ArtifactProcessedImageSliceDataset("data_processed/test")
+        train_dataset = ArtifactProcessedImageSliceDataset("data_processed_artifact_removal/training")
+        val_dataset   = ArtifactProcessedImageSliceDataset("data_processed_artifact_removal/validation")
+        test_dataset  = ArtifactProcessedImageSliceDataset("data_processed_artifact_removal/test")
         print(f"Train set: {len(train_dataset)}, Val set: {len(val_dataset)}, Test set: {len(test_dataset)}")
         train_loader = DataLoader(train_dataset, batch_size=64, shuffle=False, num_workers=8, drop_last=True) #no shuffle to reserve spatial info
         val_loader = DataLoader(val_dataset, batch_size=64, shuffle=False, num_workers=4)
@@ -89,7 +89,7 @@ class Pipeline:
         return train_loader, val_loader, test_loader
 
     def __call__(self):
-        for self.epoch in range(50):
+        for self.epoch in range(500):
             self.logger.info(f'Epoch {self.epoch}')
             self.train_epoch()
             self.val_epoch()
@@ -114,9 +114,9 @@ class Pipeline:
             label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
             # ZS 07/08 circular mask; 2*brain and 0.5*background
-            #mask = batch['mask'].to(self.device)
-            #weight_map = (mask * 2.0 + (1 - mask) * 0.5)
-            #loss = F.mse_loss(pred * weight_map, label * weight_map)
+            mask = batch['mask'].to(self.device)
+            weight_map = (mask * 1.0 + (1 - mask) * 0)
+            loss = F.mse_loss(pred * weight_map, label * weight_map)
 
             losses['mse_loss'].append(loss.item())
             if self.writer is not None:
@@ -147,9 +147,9 @@ class Pipeline:
             label = isp_true.to(self.device)
             loss = F.mse_loss(pred, label)
             # ZS 07/08 circular mask; 2*brain and 0.5*background
-            #mask = batch['mask'].to(self.device)
-            #weight_map = (mask * 2.0 + (1 - mask) * 0.5)
-            #loss = F.mse_loss(pred * weight_map, label * weight_map)
+            mask = batch['mask'].to(self.device)
+            weight_map = (mask * 1.0 + (1 - mask) * 0)
+            loss = F.mse_loss(pred * weight_map, label * weight_map)
             losses.append(loss.item())
 
         avg_loss = np.mean(losses)
